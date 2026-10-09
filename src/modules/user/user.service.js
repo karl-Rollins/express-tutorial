@@ -16,17 +16,17 @@ export const userService = {
 
   // Get user by ID
   getUserById: async (id) => {
-    const {rows} = await db.query(`SELECT * FROM users WHERE id = $1`, [id]);
-    const user = rows[0]
+    const { rows } = await db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+    const user = rows[0];
     if (!user) {
       throw new AppError('User not found', 404);
     }
     return user;
   },
 
-   getUserByName: async (name) => {
-    const {rows} = await db.query('SELECT * FROM users WHERE name ILIKE $1 ORDER BY name ASC', [`%${name}%`]);
-    
+  getUserByName: async (name) => {
+    const { rows } = await db.query('SELECT * FROM users WHERE name ILIKE $1 ORDER BY name ASC', [`%${name}%`]);
+
     if (rows.length === 0) {
       throw new AppError('User not found', 404);
     }

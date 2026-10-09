@@ -21,6 +21,6 @@ export const deleteUserSchema = z.object({
 
 export const searchUserSchema = z.object({
   query: z.object({
-    name: z.string().trim().min(1,'Cannot be empty').optional(),
-  })
-})
+    name: z.string().trim().min(1, 'Cannot be empty').optional(),
+  }),
+});

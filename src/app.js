@@ -13,16 +13,16 @@ import { db } from './config/db.js';
 
 export const createApp = () => {
   const app = express();
-  
+
   app.get('/members', async (req, res) => {
     try {
       const result = await db.query('SELECT * FROM members');
       res.json(result.rows);
     } catch (error) {
       logger.error('Database query failed: ', error);
-      res.status(500).json({ error: 'Internal Server Error'});
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-  })
+  });
 
   app.use(helmet());
   app.use(hpp());

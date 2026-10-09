@@ -14,7 +14,7 @@ import { db } from './config/db.js';
 export const createApp = () => {
   const app = express();
 
-  app.get('/members', async (req, res) => {
+  app.get('/users', async (req, res) => {
     try {
       const result = await db.query('SELECT * FROM members');
       res.json(result.rows);

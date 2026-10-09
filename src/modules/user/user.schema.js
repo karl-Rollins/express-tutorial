@@ -18,3 +18,9 @@ export const deleteUserSchema = z.object({
     id: z.uuid('Invalid user ID'),
   }),
 });
+
+export const searchUserSchema = z.object({
+  query: z.object({
+    name: z.string().trim().min(1, 'Cannot be empty').optional(),
+  }),
+});

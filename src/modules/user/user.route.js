@@ -1,11 +1,12 @@
 import { Router } from 'express';
 import { validate } from '#src/middlewares/validate.js';
 import { userController } from './user.controller.js';
-import { createUserSchema, getUserByIdSchema, deleteUserSchema } from './user.schema.js';
+import { createUserSchema, getUserByIdSchema, deleteUserSchema, searchUserSchema } from './user.schema.js';
 
 const router = Router();
 
 router.get('/v1/users/', userController.getAllUsers);
+router.get('/v1/users/search/:name', validate(searchUserSchema), userController.getUserByName);
 router.get('/v1/users/:id', validate(getUserByIdSchema), userController.getUserById);
 router.post('/v1/users/', validate(createUserSchema), userController.createUser);
 router.delete('/v1/users/:id', validate(deleteUserSchema), userController.deleteUser);

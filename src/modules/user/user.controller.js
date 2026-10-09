@@ -19,6 +19,14 @@ export const userController = {
     });
   },
 
+  getUserByName: async (req, res) => {
+    const user = await userService.getUserByName(req.params.name);
+    res.status(200).json({
+      status: 'success',
+      data: user,
+    });
+  },
+
   // POST /users
   createUser: async (req, res) => {
     const user = await userService.createUser(req.body);

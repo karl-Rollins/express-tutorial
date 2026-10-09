@@ -1,7 +1,8 @@
 import { AppError } from '#src/middlewares/error-handler.js';
+import { db } from '#src/config/db.js';
 
 // In-memory database (replace with real database in production)
-const users = [];
+const users = db.query('SELECT * FROM users');
 
 export const clearUsers = () => {
   users.length = 0;
@@ -15,11 +16,21 @@ export const userService = {
 
   // Get user by ID
   getUserById: async (id) => {
-    const user = users.find((u) => u.id === id);
+    const { rows } = await db.query(`SELECT * FROM users WHERE id = $1`, [id]);
+    const user = rows[0];
     if (!user) {
       throw new AppError('User not found', 404);
     }
     return user;
+  },
+
+  getUserByName: async (name) => {
+    const { rows } = await db.query('SELECT * FROM users WHERE name ILIKE $1 ORDER BY name ASC', [`%${name}%`]);
+
+    if (rows.length === 0) {
+      throw new AppError('User not found', 404);
+    }
+    return rows;
   },
 
   // Create user
